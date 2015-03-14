@@ -82,19 +82,18 @@ int main(){
 		if (input != "f" && input != "m") std::cout << "Not a valid input" << std::endl;
 	}
 	if (input == "f"){
-		//TODO: File Parsing
 		std::cout << "Enter the relative path to your .txt file:" << std::endl;
 		std::cin >> input;
 		std::ifstream infile(input);
 		std::string line;
 		int i = 1;
 		while (std::getline(infile, input)){
-			if (!std::regex_match(line, input_test))
+			if (!std::regex_match(input, input_test))
 				std::cout << "Line " << i << ": \"" << input << "\" was ignored as an incorrectly formatted entry." << std::endl;
 			else {
 				row = char_to_int[input[0]];
 				col = input[1] - '0' - 1;
-				value = input[3] - '0' - 1;
+				value = input[3] - '0';
 				//validate input
 				if (sudo_valid(row, col, value, matrix))
 					matrix[row][col] = value;
@@ -126,7 +125,7 @@ int main(){
 	}
 	sudoku_solver(matrix);
 	print_matrix(matrix);
-	std::cout << "Here is the finished sudoku puzzle. Press enter to terminate the program" << std::endl;
+	std::cout << "Here is the finished sudoku puzzle. Enter any character and enter to terminate the program" << std::endl;
 	std::cin >> input;
 	return 0;
 }
