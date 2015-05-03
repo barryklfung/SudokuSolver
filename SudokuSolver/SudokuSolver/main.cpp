@@ -3,9 +3,18 @@
 #include <fstream>
 #include <sstream>
 #include <regex>
+#include <set>
 
 void sudoku_solver(int matrix[9][9]){
 //To write - Sudoku Solver
+	int domains[9][9][9] = {0};
+	for (int i = 0; i < 9; i++){
+		for (int j = 0; j < 9; j++){
+			if (matrix[i][j] != 0)
+				domains[i][j][matrix[i][j] - 1] = 1;
+		}
+	}
+
 
 }
 bool sudo_valid(int row, int col, int value, int matrix[9][9]){
@@ -88,6 +97,7 @@ int main(){
 		std::string line;
 		int i = 1;
 		while (std::getline(infile, input)){
+			//Validations
 			if (!std::regex_match(input, input_test))
 				std::cout << "Line " << i << ": \"" << input << "\" was ignored as an incorrectly formatted entry." << std::endl;
 			else {
@@ -108,7 +118,7 @@ int main(){
 		while (input != "q"){
 			std::cout << "Input values in the format '(row 'a-i')(column '1-9') (value)' e.g. 'a9 7'. Enter 'q' to terminate." << std::endl;
 			std::getline(std::cin, input);
-			// check for valid input.
+			// Validations.
 			if ((!std::regex_match(input, input_test))&&(input != "q"))
 				std::cout << "Your input: \"" << input <<"\" is not correcty formatted." << std::endl;
 			else if (input != "q"){
@@ -125,7 +135,7 @@ int main(){
 	}
 	sudoku_solver(matrix);
 	print_matrix(matrix);
-	std::cout << "Here is the finished sudoku puzzle. Enter any character and enter to terminate the program" << std::endl;
+	std::cout << "Here is the finished sudoku puzzle. Enter any character and enter to terminate the program." << std::endl;
 	std::cin >> input;
 	return 0;
 }
